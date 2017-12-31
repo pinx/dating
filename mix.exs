@@ -21,7 +21,7 @@ defmodule Periods.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18.1"},
+      {:ex_doc, "~> 0.18.1", only: :dev},
       {:mix_test_watch, "~> 0.5", only: [:dev, :test], runtime: false},
       {:timex, "~> 3.1"}
     ]
