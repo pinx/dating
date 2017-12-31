@@ -1,10 +1,9 @@
-defmodule DatingTest do
+defmodule Periods.Test do
   use ExUnit.Case
-  doctest Dating
-  alias Dating.{Period}
+  alias Periods.Period
+  doctest Periods
 
-
-  describe "intersect identical periods" do
+  describe "intersect identical Periods." do
 
     test "simple" do
       a = %Period{
@@ -23,7 +22,7 @@ defmodule DatingTest do
           end_at: ~D[2017-07-14]
         }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "infinite" do
@@ -43,7 +42,7 @@ defmodule DatingTest do
           end_at: nil
         }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "forever until" do
@@ -63,7 +62,7 @@ defmodule DatingTest do
           end_at: ~D[2012-01-01]
         }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "forever after" do
@@ -83,13 +82,13 @@ defmodule DatingTest do
           end_at: nil
         }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
 
   end
 
-  describe "intersect contained periods" do
+  describe "intersect contained Periods." do
 
     test "b inside a" do
       a = %Period{
@@ -104,7 +103,7 @@ defmodule DatingTest do
 
       result = b
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "a inside b" do
@@ -120,7 +119,7 @@ defmodule DatingTest do
 
       result = a
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b inside a forever until" do
@@ -136,7 +135,7 @@ defmodule DatingTest do
 
       result = b
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b inside a forever after" do
@@ -152,7 +151,7 @@ defmodule DatingTest do
 
       result = b
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b is forever, a is forever until" do
@@ -168,12 +167,12 @@ defmodule DatingTest do
 
       result = a
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
   end
 
-  describe "intersect partially overlapping periods" do
+  describe "intersect partially overlapping Periods." do
 
     test "b starts and ends after a" do
       a = %Period{
@@ -191,7 +190,7 @@ defmodule DatingTest do
         end_at: ~D[2017-07-14]
       }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b starts and ends after a, one day overlapping" do
@@ -210,7 +209,7 @@ defmodule DatingTest do
         end_at: ~D[2017-02-14]
       }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b overlaps with a forever until" do
@@ -229,7 +228,7 @@ defmodule DatingTest do
         end_at: ~D[2017-09-14]
       }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
     test "b is forever after, a is forever until" do
@@ -248,12 +247,12 @@ defmodule DatingTest do
         end_at: ~D[2017-09-14]
       }
 
-      assert result == Period.intersect(a, b)
+      assert result == Periods.intersect(a, b)
     end
 
   end
 
-  describe "non-overlapping periods" do
+  describe "non-overlapping Periods." do
 
     test "b after a, non-neighbouring" do
       a = %Period{
@@ -266,8 +265,8 @@ defmodule DatingTest do
         end_at: ~D[2017-09-08]
       }
 
-      Period.intersect(a, b)
-      assert is_nil(Period.intersect(a, b))
+      Periods.intersect(a, b)
+      assert is_nil(Periods.intersect(a, b))
     end
 
     test "b after a, neighbouring" do
@@ -281,7 +280,7 @@ defmodule DatingTest do
         end_at: ~D[2017-09-08]
       }
 
-      assert is_nil(Period.intersect(a, b))
+      assert is_nil(Periods.intersect(a, b))
     end
 
   end
