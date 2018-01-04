@@ -1,4 +1,4 @@
 defmodule Periods.Period do
-  defstruct start_at: nil, end_at: nil
+  defstruct starts_at: nil, ends_at: nil
 
 end

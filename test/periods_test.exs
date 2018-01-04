@@ -7,19 +7,19 @@ defmodule Periods.Test do
 
     test "simple" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-07-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-07-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-07-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-07-14]
       }
 
       result =
         %Period{
-          start_at: ~D[2017-01-09],
-          end_at: ~D[2017-07-14]
+          starts_at: ~D[2017-01-09],
+          ends_at: ~D[2017-07-14]
         }
 
       assert result == Periods.intersect(a, b)
@@ -27,19 +27,19 @@ defmodule Periods.Test do
 
     test "infinite" do
       a = %Period{
-        start_at: nil,
-        end_at: nil
+        starts_at: nil,
+        ends_at: nil
       }
 
       b = %Period{
-        start_at: nil,
-        end_at: nil
+        starts_at: nil,
+        ends_at: nil
       }
 
       result =
         %Period{
-          start_at: nil,
-          end_at: nil
+          starts_at: nil,
+          ends_at: nil
         }
 
       assert result == Periods.intersect(a, b)
@@ -47,19 +47,19 @@ defmodule Periods.Test do
 
     test "forever until" do
       a = %Period{
-        start_at: nil,
-        end_at: ~D[2012-01-01]
+        starts_at: nil,
+        ends_at: ~D[2012-01-01]
       }
 
       b = %Period{
-        start_at: nil,
-        end_at: ~D[2012-01-01]
+        starts_at: nil,
+        ends_at: ~D[2012-01-01]
       }
 
       result =
         %Period{
-          start_at: nil,
-          end_at: ~D[2012-01-01]
+          starts_at: nil,
+          ends_at: ~D[2012-01-01]
         }
 
       assert result == Periods.intersect(a, b)
@@ -67,19 +67,19 @@ defmodule Periods.Test do
 
     test "forever after" do
       a = %Period{
-        start_at: ~D[2012-01-01],
-        end_at: nil
+        starts_at: ~D[2012-01-01],
+        ends_at: nil
       }
 
       b = %Period{
-        start_at: ~D[2012-01-01],
-        end_at: nil
+        starts_at: ~D[2012-01-01],
+        ends_at: nil
       }
 
       result =
         %Period{
-          start_at: ~D[2012-01-01],
-          end_at: nil
+          starts_at: ~D[2012-01-01],
+          ends_at: nil
         }
 
       assert result == Periods.intersect(a, b)
@@ -92,13 +92,13 @@ defmodule Periods.Test do
 
     test "b inside a" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-09-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-09-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       result = b
@@ -108,13 +108,13 @@ defmodule Periods.Test do
 
     test "a inside b" do
       a = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       b = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-09-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-09-14]
       }
 
       result = a
@@ -124,13 +124,13 @@ defmodule Periods.Test do
 
     test "b inside a forever until" do
       a = %Period{
-        start_at: nil,
-        end_at: ~D[2017-09-14]
+        starts_at: nil,
+        ends_at: ~D[2017-09-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       result = b
@@ -140,13 +140,13 @@ defmodule Periods.Test do
 
     test "b inside a forever after" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: nil
+        starts_at: ~D[2017-01-09],
+        ends_at: nil
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       result = b
@@ -156,13 +156,13 @@ defmodule Periods.Test do
 
     test "b is forever, a is forever until" do
       a = %Period{
-        start_at: nil,
-        end_at: ~D[2016-02-04]
+        starts_at: nil,
+        ends_at: ~D[2016-02-04]
       }
 
       b = %Period{
-        start_at: nil,
-        end_at: nil
+        starts_at: nil,
+        ends_at: nil
       }
 
       result = a
@@ -176,18 +176,18 @@ defmodule Periods.Test do
 
     test "b starts and ends after a" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-07-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-07-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       result = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-07-14]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-07-14]
       }
 
       assert result == Periods.intersect(a, b)
@@ -195,18 +195,18 @@ defmodule Periods.Test do
 
     test "b starts and ends after a, one day overlapping" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-02-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-02-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-02-14],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-02-14],
+        ends_at: ~D[2017-09-08]
       }
 
       result = %Period{
-        start_at: ~D[2017-02-14],
-        end_at: ~D[2017-02-14]
+        starts_at: ~D[2017-02-14],
+        ends_at: ~D[2017-02-14]
       }
 
       assert result == Periods.intersect(a, b)
@@ -214,18 +214,18 @@ defmodule Periods.Test do
 
     test "b overlaps with a forever until" do
       a = %Period{
-        start_at: nil,
-        end_at: ~D[2017-09-14]
+        starts_at: nil,
+        ends_at: ~D[2017-09-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-16]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-16]
       }
 
       result = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-14]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-14]
       }
 
       assert result == Periods.intersect(a, b)
@@ -233,18 +233,18 @@ defmodule Periods.Test do
 
     test "b is forever after, a is forever until" do
       a = %Period{
-        start_at: nil,
-        end_at: ~D[2017-09-14]
+        starts_at: nil,
+        ends_at: ~D[2017-09-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: nil
+        starts_at: ~D[2017-03-03],
+        ends_at: nil
       }
 
       result = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-14]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-14]
       }
 
       assert result == Periods.intersect(a, b)
@@ -256,13 +256,13 @@ defmodule Periods.Test do
 
     test "b after a, non-neighbouring" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-02-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-02-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-03-03],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-03-03],
+        ends_at: ~D[2017-09-08]
       }
 
       Periods.intersect(a, b)
@@ -271,13 +271,13 @@ defmodule Periods.Test do
 
     test "b after a, neighbouring" do
       a = %Period{
-        start_at: ~D[2017-01-09],
-        end_at: ~D[2017-02-14]
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-02-14]
       }
 
       b = %Period{
-        start_at: ~D[2017-02-15],
-        end_at: ~D[2017-09-08]
+        starts_at: ~D[2017-02-15],
+        ends_at: ~D[2017-09-08]
       }
 
       assert is_nil(Periods.intersect(a, b))

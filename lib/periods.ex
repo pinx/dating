@@ -14,29 +14,29 @@ defmodule Periods do
   ## Examples
 
       iex> Periods.intersect(%Period{
-      ...>   start_at: ~D[2017-01-09],
-      ...>   end_at: ~D[2017-07-14]
+      ...>   starts_at: ~D[2017-01-09],
+      ...>   ends_at: ~D[2017-07-14]
       ...> }, %Period{
-      ...>   start_at: ~D[2017-02-09],
-      ...>   end_at: ~D[2017-07-01]
+      ...>   starts_at: ~D[2017-02-09],
+      ...>   ends_at: ~D[2017-07-01]
       ...> })
-      %Period{start_at: ~D[2017-02-09], end_at: ~D[2017-07-01]}
+      %Period{starts_at: ~D[2017-02-09], ends_at: ~D[2017-07-01]}
   """
   def intersect(%Period{} = period1, %Period{} = period2) do
     periods = [period1, period2]
-    start_at =
+    starts_at =
       periods
-      |> Enum.map(&Map.get(&1, :start_at))
+      |> Enum.map(&Map.get(&1, :starts_at))
       |> Enum.reject(&is_nil/1)
       |> Enum.map(&Timex.to_unix/1)
       |> max()
-    end_at =
+    ends_at =
       periods
-      |> Enum.map(&Map.get(&1, :end_at))
+      |> Enum.map(&Map.get(&1, :ends_at))
       |> Enum.reject(&is_nil/1)
       |> Enum.map(&Timex.to_unix/1)
       |> min()
-    new(start_at, end_at)
+    new(starts_at, ends_at)
   end
 
   defp max([]) do
@@ -52,15 +52,15 @@ defmodule Periods do
     Enum.min(list)
   end
 
-  defp new(start_at, end_at)
-  when (start_at > end_at) and not is_nil(start_at) and not is_nil(end_at) do
+  defp new(starts_at, ends_at)
+  when (starts_at > ends_at) and not is_nil(starts_at) and not is_nil(ends_at) do
     nil
   end
-  defp new(start_at_seconds, end_at_seconds) do
+  defp new(starts_at_seconds, ends_at_seconds) do
     %Period{
-      start_at: (start_at_seconds
+      starts_at: (starts_at_seconds
                 |> to_date()),
-      end_at: (end_at_seconds
+      ends_at: (ends_at_seconds
               |> to_date())
     }
   end
