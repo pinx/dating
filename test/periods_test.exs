@@ -284,4 +284,15 @@ defmodule Periods.Test do
     end
 
   end
+
+  describe "inspecting" do
+    test "renders valid start and end" do
+      a = %Period{
+        starts_at: ~D[2017-01-09],
+        ends_at: ~D[2017-02-14]
+      }
+
+      assert inspect(a) == "2017-01-09 — 2017-02-14"
+    end
+  end
 end
